@@ -25,13 +25,13 @@ const ColorList = ({ colors, updateColors, props }) => {
     // think about where will you get the id from...
     // where is is saved right now?event.preventDefault();
     axiosWithAuth()
-    // .put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
-    // .then(res => {
-    //   console.log(res.data);
-    //   // props.updateColor(res.data);
-    //   // props.history.push('/');
-    // })
-    // .catch(err => console.log(err.response));
+    .put(`http://localhost:5000/api/colors/${e.id}`, colorToEdit)
+    .then(res => {
+      console.log(res.data);
+      props.updateColor(res.data);
+      props.history.push('/');
+    })
+    .catch(err => console.log(err.response));
 };
   const deleteColor = color => {
     console.log(color.id);
