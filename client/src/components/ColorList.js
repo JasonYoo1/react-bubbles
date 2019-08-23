@@ -10,7 +10,8 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors, props }) => {
-  console.log(colors);
+  //this was huge hint. saw EMPTY array on colors.
+  // console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -28,8 +29,11 @@ const ColorList = ({ colors, updateColors, props }) => {
     .put(`http://localhost:5000/api/colors/${e.id}`, colorToEdit)
     .then(res => {
       console.log(res.data);
-      props.updateColor(res.data);
-      props.history.push('/');
+      if(colorToEdit.id === colors.id){
+        console.log('somethings right')
+      } else {
+        console.log('something is wrong')
+      }
     })
     .catch(err => console.log(err.response));
 };
@@ -39,7 +43,8 @@ const ColorList = ({ colors, updateColors, props }) => {
       .delete(`http://localhost:5000/api/colors/${color.id}`)
       .then(res => {
         console.log(res)
-        updateColors(colors.filter(colorElement => colorElement.id !== color.id))
+        updateColors(colors.filter(colorValue => colorValue.id !== color.id))
+  
       })
       .catch(err => console.log(err))
   };
