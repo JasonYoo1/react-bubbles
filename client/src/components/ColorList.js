@@ -22,16 +22,14 @@ const ColorList = ({ colors, updateColors, props }) => {
 
   const saveEdit = e => {
     e.preventDefault();
-    // Make a put request to save your updated color
-    // think about where will you get the id from...
-    // where is is saved right now?event.preventDefault();
     axiosWithAuth()
     .put(`http://localhost:5000/api/colors/${e.id}`, colorToEdit)
     .then(res => {
       console.log(res.data);
+      let colorsArray = [...colors]
       if(colorToEdit.id !== colors.id){
         colors.push(colorToEdit)
-        console.log(colors)
+        updateColors([...colors])
       } else {
         console.log('something is wrong')
       }
