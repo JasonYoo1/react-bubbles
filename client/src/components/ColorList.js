@@ -11,7 +11,7 @@ const initialColor = {
 
 const ColorList = ({ colors, updateColors, props }) => {
   //this was huge hint. saw EMPTY array on colors.
-  // console.log(colors);
+  console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
@@ -29,8 +29,9 @@ const ColorList = ({ colors, updateColors, props }) => {
     .put(`http://localhost:5000/api/colors/${e.id}`, colorToEdit)
     .then(res => {
       console.log(res.data);
-      if(colorToEdit.id === colors.id){
-        console.log('somethings right')
+      if(colorToEdit.id !== colors.id){
+        colors.push(colorToEdit)
+        console.log(colors)
       } else {
         console.log('something is wrong')
       }
