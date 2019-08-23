@@ -26,7 +26,6 @@ const ColorList = ({ colors, updateColors, props }) => {
     .put(`http://localhost:5000/api/colors/${e.id}`, colorToEdit)
     .then(res => {
       console.log(res.data);
-      let colorsArray = [...colors]
       if(colorToEdit.id !== colors.id){
         colors.push(colorToEdit)
         updateColors([...colors])
