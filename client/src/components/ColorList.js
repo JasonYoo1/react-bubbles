@@ -23,18 +23,24 @@ const ColorList = ({ colors, updateColors, props }) => {
   const saveEdit = e => {
     e.preventDefault();
     axiosWithAuth()
-    .put(`http://localhost:5000/api/colors/${e.id}`, colorToEdit)
+    .put(`http://localhost:5000/api/colors/${colorToEdit.id}`, colorToEdit)
     .then(res => {
       console.log(res.data);
-      if(colorToEdit.id !== colors.id){
-        colors.push(colorToEdit)
-        updateColors([...colors])
-      } else {
-        console.log('something is wrong')
+      const colorArray = [...colors]
+      for(let i=0; i<colorArray.length; i++){
+        if(colorArray[i].id === colorToEdit.id) {
+          colorArray[i].id = colorToEdit.id          
+          colorArray[i].color = colorToEdit.color
+          colorArray[i].code = colorToEdit.code 
+        } else {
+          console.log('something is wrong')
+        }
       }
+      updateColors([...colorArray])
     })
     .catch(err => console.log(err.response));
 };
+
   const deleteColor = color => {
     console.log(color.id);
     axiosWithAuth()
